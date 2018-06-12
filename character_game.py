@@ -6,17 +6,16 @@ class Application(Frame):
         super().__init__(root)
         self.grid()
 
-        #create canvas and grid it to window
         self.canvas = Canvas(self, width=1000, height=700, bg="white")
         self.canvas.grid()
 
         self.imagePredix = PhotoImage(file="predix.gif")
         self.imageVirus = PhotoImage(file="virus.gif")
 
-        #create predix hero
+        #hero
         self.player = self.canvas.create_image(50, 350, image=self.imagePredix)
 
-        #create enemies
+        #enemies
         enemy1 = self.canvas.create_image(500, 350, image=self.imageVirus)
         enemy2 = self.canvas.create_image(300, 150, image=self.imageVirus)
         enemy3 = self.canvas.create_image(750, 500, image=self.imageVirus)
@@ -30,12 +29,9 @@ class Application(Frame):
         #bind keyboard to key function and focus input on canvas
         self.canvas.bind("<Key>", self.key)
         self.canvas.focus_set()
-
-        #kick off gameLoop event
+        
         self.gameLoop()
 
-
-    #define key event handler
     def key(self, event):
         if event.keysym == "Up" or event.keysym == "w":
             self.canvas.move(self.player, 0, -20)
@@ -47,8 +43,6 @@ class Application(Frame):
             self.canvas.move(self.player, 20, 0)
         self.canvas.update()
 
-
-    #define gameLoop
     def gameLoop(self):
         coords = self.canvas.bbox(self.player)
         collisions = self.canvas.find_overlapping(coords[0],
@@ -62,13 +56,10 @@ class Application(Frame):
         if coords[0] >=1000:
             self.canvas.move(self.player,-1000,0)
 
-        #loop after x many milliseconds
+        #loop 
         self.after(20,self.gameLoop)
 
-
-
 def main():
-    #main window
     root = Tk()
     root.title("Predix Kills Bugs - Sample App")
     root.geometry("1000x700")
