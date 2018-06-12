@@ -6,14 +6,13 @@ class Application(Frame):
         super().__init__(root)
         self.grid()
 
-        #create canvas and grid it to window
         self.canvas = Canvas (self, width = 1000, height = 700, bg = "white")
         self.canvas.grid()
 
-        #create rectangle
+        #hero - rectangle
         self.player = self.canvas.create_rectangle(0,350,50,400, outline = "black", fill = "white", tag = "player")
 
-        #create enemies
+        #enemies
         enemy1 = self.canvas.create_rectangle(500,350,550,400, outline = "black", fill = "red", tag = "enemy")
         enemy2 = self.canvas.create_rectangle(300,150,350,200, outline = "black", fill = "red")
         enemy3 = self.canvas.create_rectangle(750,500,800,550, outline = "black", fill = "red")
@@ -24,15 +23,12 @@ class Application(Frame):
         self.enemyList.append(enemy2)
         self.enemyList.append(enemy3)
 
-        #bind keyboard to key function and focus input on canvas
         self.canvas.bind("<Key>", self.key)
         self.canvas.focus_set()
 
-        #kick off gameLoop event
         self.gameLoop()
 
 
-    #define key event handler
     def key(self, event):
         if event.keysym == "Up" or event.keysym == "w":
             self.canvas.move(self.player,0,-20)
@@ -44,8 +40,7 @@ class Application(Frame):
             self.canvas.move(self.player,20,0)
         self.canvas.update()
 
-
-    #define  gameLoop
+    #gameLoop
     def gameLoop(self):
         coords = self.canvas.bbox(self.player)
         collisions = self.canvas.find_overlapping(coords[0],
@@ -60,13 +55,12 @@ class Application(Frame):
             self.canvas.move(self.player,-1000,0)
 
 
-        #loop after x many milliseconds
+        #loop
         self.after(20,self.gameLoop)
 
 
 
 def main():
-    #main window
     root = Tk()
     root.title("Game_Example")
     root.geometry("1000x700")
