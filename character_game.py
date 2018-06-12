@@ -1,16 +1,16 @@
-from tkinter import *
+import Tkinter as tk
 
 
-class Application(Frame):
-    def __init__(self, root):
-        super().__init__(root)
+class Application(tk.Frame, object):
+    def __init__(self, master):
+        super(Application, self).__init__(master)
         self.grid()
 
-        self.canvas = Canvas(self, width=1000, height=700, bg="white")
+        self.canvas = tk.Canvas(self, width=1000, height=700, bg="white")
         self.canvas.grid()
 
-        self.imagePredix = PhotoImage(file="predix.gif")
-        self.imageVirus = PhotoImage(file="virus.gif")
+        self.imagePredix = tk.PhotoImage(file="predix.gif")
+        self.imageVirus = tk.PhotoImage(file="virus.gif")
 
         #hero
         self.player = self.canvas.create_image(50, 350, image=self.imagePredix)
@@ -60,7 +60,7 @@ class Application(Frame):
         self.after(20,self.gameLoop)
 
 def main():
-    root = Tk()
+    root = tk.Tk()
     root.title("Predix Kills Bugs - Sample App")
     root.geometry("1000x700")
     app = Application(root)
