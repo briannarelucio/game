@@ -1,0 +1,23 @@
+---
+ # fetch:
+ #   - unit_test: deploy
+ #   - build
+  pipeline:
+    unit_test
+  profiles:
+    unit_test:
+      input:
+        - character_game.py
+      script: unit_test.sh
+    build:
+      input:
+      - character_game.py
+      script: test_game.py
+      output:
+        - character_game.py
+    deploy:
+      input:
+        - character_game.py
+      script: character_game.py
+    default:
+      script: dev/null
